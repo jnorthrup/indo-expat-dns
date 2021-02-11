@@ -34,3 +34,8 @@ the script will write entries to /etc/hosts and copy to console
 
 no error checking is performed.
 
+## google dns
+```bash
+sudo bash ./sdns https://dns.google.com/resolve?name
+8.8.4.4 dns.google.com
+```
