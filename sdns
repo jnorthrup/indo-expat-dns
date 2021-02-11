@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#use google dns webservice 
+
+#as root 
+
+## if debugging 
+#set -x
+#set -v
+
+for src in $@
+do 
+	i=$(echo  $src |sed --regexp-extended 's,((http[s]?|wss|ftp)://)?([^@]+@)?([^/:?&#]+)(.*),\4,g')
+  eval echo $(
+    curl -s 'https://dns.google.com/resolve?name='${i[@]}'&type=A'|
+      jq -S '.Answer[-1].data'
+    ) $i |
+  grep -v null |
+  tee -a /etc/hosts  
+done 
